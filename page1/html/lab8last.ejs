@@ -1,0 +1,292 @@
+<!DOCKTYPE html>
+<html>
+
+<head>
+    <meta charet='utf-8'>
+    <link rel="stylesheet" href="../css/Lab4forms.css" />
+    <link rel="stylesheet" href="../css/HeaderForm.css" />
+    <script src="../scripts/JQuery.js"></script>
+    <title>Market</title>
+
+</head>
+
+<body text="wheat">
+
+    <header class="head"></header>
+    <main>
+        <nav class="navigation" id="block">
+            <button class="avtorize btn" id="tbl" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Ля какие ученики!</button>
+        </nav>
+        <section class="loginForm">
+
+            <div id="id01" class="modal">
+                <div class="imgcontainer">
+                    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+                </div>
+                <div class="modal-content animate">
+                    <div style="font-size:20px; color:forestgreen; margin: 5px;">Наши ученики:</div>
+
+                    <table id="MT" NOSHADE cellspacing="0" class="goodTable">
+                            <tr>
+                                <td class="good">Имя</td>
+                                <td class="good">Фамилия</td>
+                                <td class="good">Год рождения</td>
+                                <td class="good">Адрес</td>
+                                <td class="good">Пол</td>
+                            </tr>
+							<%if(mSt!=0){%>
+							<%console.log(mSt)%>
+								<% for(var i=0; i<mSt.length;i++) {%>
+									<tr>
+										<td class="good">
+											<%=mSt[i].name %>
+										</td>
+										<td class="good">
+											<%=mSt[i].surname %>
+										</td>
+										<td class="good">
+											<%=mSt[i].ageOfBirth %>
+										</td>
+										<td class="good">
+											<%=mSt[i].address %>
+										</td>
+										<td class="good">
+											<%=mSt[i].sex %>
+										</td>
+									</tr>
+									<%}}else{conslole.log("err")} %>
+                    </table>
+                </div>
+                <button type="button" onclick="document.getElementById('id01').style.display = 'none'" class="cancelbtn">Cancel</button>
+            </div>
+        </section>
+        <article class="toForm" id="blockMain">
+
+            <div style="color: black; font-size:25px; text-shadow: 3px 3px 5px white;">Оставте информацию о своих учениках. Мы помогаем Вам не забыть их данные!</div>
+            <form class="form1" id="form1" action="/newStudent" method="post">
+               
+                <fieldset>
+                    <legend>Информация об ученике</legend>
+                    <div class="f1">
+                        <div class="field">
+                            <label id="bl" for="name">Имя </label>
+                            <input required type="text" id="mark" name="name" autofocus placeholder="Ибрагим"><br>
+                        </div>
+                        <div class="field">
+                            <label for="surname">Фамилия</label>
+                            <input required type="text" id="ser" name="surname" placeholder="Ленин"><br>
+                        </div>
+                        <div class="field">
+                            <label for="year">Год рождения</label>
+
+                            <select id="year" name="year" size="1" required>
+                               <script>
+								    for (let year = 1920; year <= 2023; year++) {
+                                        let options = document.createElement("OPTION");
+										options.setAttribute("value", year);
+										if(year==2003) options.setAttribute("selected", "selected");
+                                        document.getElementById("year").appendChild(options).innerHTML = year;
+                                    }
+							   </script>
+                            </select><br>
+                        </div>
+                        <br>
+
+                        <div class="field">
+                            <label for="addr">Адрес</label>
+                            <input name="addr" type="text" id="addr" required placeholder="Беларусь, Жлобин, мкр.1, д.3, кв.34"><br>
+                        </div><br>
+                        <div class="field">
+                            <label for="sex">Пол</label>
+                            <select id="sex" name="sex" size="1" required>
+                               <option value="Мужской">Мужской</option>
+							    <option value="Женский">Женский</option>
+								<option value="Другой">Другой</option>
+								
+                            </select><br>
+                        </div>
+                        <br>
+							<input type="submit" value="Отправить">
+                    <input type="reset" value="Сбросить">
+                    </div>
+                    
+                </fieldset>
+				</form>
+                <div class="fs">
+                    <legend>Кнопочки</legend>
+                    
+
+            <form id="idForm" method="post" action="/deleteStudent">
+				<div class="f1">
+				<div class="field">
+					<label for="sex1">Пол</label>
+					<select id="sex1" name="sex" size="1" required>
+						<option value="Мужской">Мужской</option>
+						<option value="Женский">Женский</option>
+						<option value="Другой">Другой</option>
+					</select>
+					<br>   
+				</div>
+                <button type="submit" style="clear:both" id="del">Дискриминация по полу</button>
+				</div>
+			</form>
+			<form id="idForm" method="post" action="/findStudents">
+				<div class="f1">
+				<div class="field">
+                <label for="year2" id="nsdz">Год рождения</label>
+
+                <select id="year2" name="year2" size="1" required >
+                    <script>
+								    for (let year = 1920; year <= 2023; year++) {
+                                        let options = document.createElement("OPTION");
+										options.setAttribute("value", year);
+										if(year==2003) options.setAttribute("selected", "selected");
+                                        document.getElementById("year2").appendChild(options).innerHTML = year;
+                                    }
+							   </script>
+                </select><br>
+					</div>
+				</div>
+                <button style="clear:both" id="show" type="submit">Показать учеников по возрасту</button>
+
+            </form>
+            <section class="loginForm">
+<% if(re!=0) {%>
+                <div id="id04" class="modal2" style="display: block">
+                    <span onclick="document.getElementById('id04').style.display='none'" class="close" title="Close Modal">×</span>
+                    <h1>По вышему запросу найдены следующие ученики:</h1>
+                    <table id="MT" NOSHADE cellspacing="0" class="goodTable">
+                            <tr>
+                                <td class="good">Имя</td>
+                                <td class="good">Фамилия</td>
+                                <td class="good">Год рождения</td>
+                                <td class="good">Адрес</td>
+                                <td class="good">Пол</td>
+                            </tr>
+					        <%console.log(re)%>
+								<% for(var i=0; i<re.length;i++) {%>
+							        <tr>                                
+                                    <td class="good"><%=re[i].name %></td>
+									<td class="good"><%=re[i].surname %></td>
+									<td class="good"><%=re[i].ageOfBirth %></td>
+									<td class="good"><%=re[i].address %></td>
+									<td class="good"><%=re[i].sex %></td>  
+							        </tr>
+								<%} %>
+
+
+                    </table>
+                    <button type="button" onclick="document.getElementById('id04').style.display = 'none'" class="cancelbtn">Закрыть</button>
+                </div>    
+	 <% }else {%>
+		 <%console.log(re)%>
+    <%} %>
+            </section>
+			<section class="loginForm">
+			<button id="showM" style="margin-top:10px; float:auto" onclick="document.getElementById('id06').style.display = 'block'">Изменить ученика</button>
+			 <div id="id06" class="modal2" style="display: none">
+                    <span onclick="document.getElementById('id06').style.display='none'" class="close" title="Close Modal">×</span>
+                    <label for="student">Выберите ученика:</label><br>
+                    <form id="changeF" method="post" action="/changeStudent">
+						<% if(st!=0) {%>
+							<%console.log(st)%>
+				    <select id="student" name="student" size="1" required >
+                              <% for(var i=0; i<st.length;i++) {%>                               
+                                    <option value=<%=st[i].id%> ><%=st[i].name %></option>	
+								<%} %>
+
+                 </select><br>
+						 <label for="field">Выберите поле для изменения:</label><br>
+							 <select name="field" id="field">
+								 <option value="name">Имя</option>
+								 <option value="surname">Фамилия</option>
+							     <option value="address">Адрес</option>
+							     <option value="ageOfBirth">Год рождения</option>
+							     <option value="sex">Пол</option>				 
+							 </select><br>
+					 <div class="butt" id="check" style="margin-top:5px; margin-bottom:5px;">Выбрать</div>
+								 <script src="../scripts/TableInsert.js"></script>
+			</form>
+				 <%}%>
+                    <button type="button" onclick="document.getElementById('id06').style.display = 'none'" class="cancelbtn">Закрыть</button>
+                </div>    
+			</section>
+           
+            <section class="loginForm">
+
+                <div id="id02" class="modal2">
+                    <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">×</span>
+                    <h1>Успешно отправлено!</h1>
+                    <button type="button" onclick="document.getElementById('id02').style.display = 'none'" class="cancelbtn">Cancel</button>
+                </div>
+            </section>
+    </div>
+        </article>
+        <script>
+            let main = document.getElementById("blockMain");
+            height = main.offsetHeight;
+            console.log(height);
+        </script>
+        <aside class="reclama" id="block">
+			<a class="recl" href="https://hsr.hoyoverse.com/ru-ru/home"><img src="../resourses/recl3.jpg"></a>           
+            <a class="recl" href="https://lesta.ru/ru"><img src="../resourses/recl4.jpg"></a>
+			<a class="recl" href="https://genshin.hoyoverse.com/ru/"><img src="../resourses/recl1.jpeg"></a>
+        </aside>
+        <script>
+            let item = document.querySelectorAll("#block");
+            for (let i = 0; i < item.length; i++) {
+                item[i].style.height = height + 'px';
+                console.log(item[i].offsetHeight);
+            }
+        </script>
+    </main>
+    <script>
+        let mainForm = document.querySelector("main");
+        mainForm.style.height = height + "px";
+        console.log(mainForm.offsetHeight);
+        for (let i = 0; i < item.length; i++) {
+            item[i].style.height = 100 + '%';
+            console.log(item[i].offsetHeight);
+        }
+    </script>
+
+    <footer>
+        <section class="konez">
+            <a class="konez2" href="https://na.wotblitz.com/content/docs/system-requirements/">Системные требования World of Tanks Blitz</a>
+            <a class="konez2" href="https://worldoftanks.ru/ru/content/docs/download/">Системные требования World of Tanks</a>
+            <a class="konez2" href="https://na.wotblitz.com/ru/">Официальный сайт World of Tanks Blitz</a>
+            <a class="konez2" href="https://ru.wargaming.net/ru">Официальный сайт Wargaming.net</a>
+        </section>
+        <section class="konez3">
+            <div class="konez3">Сайт создан с помощью информации из </div><a class="konez3" href="http://htmlbook.ru/">HTMLBook</a>
+            <a class="konez3" href="steam://rungameid/444200">Играть в World of Tanks Blitz</a>
+            <a class="konez3" href="file:///D:/Games/WoT/World_of_Tanks_RU/wgc_api.exe">Играть в World of Tanks</a>
+        </section>
+
+        <article class="Polny_Konez">
+            2003-2023 Eugen&Co. Powered by <a class="konez4" href="https://ru.wargaming.net/ru">Wargaming.net</a> ©<br>Никакие права не защищены. Не воруйте пожалуйта мой сайт! гр.172301, ТРПО, САиПИС(сРРВП)
+        </article>
+    </footer>
+    <!--  <script>
+          if (window.localStorage) {
+              var elements = document.querySelectorAll('[name]');
+
+              for (var i = 0, length = elements.length; i < length; i++) {
+                  (function (element) {
+                      var name = element.getAttribute('name');
+
+                      element.value = localStorage.getItem(name) || element.value;
+
+                      element.onkeyup = function () {
+                          localStorage.setItem(name, element.value);
+                      };
+                  })(elements[i]);
+              }
+              for (let i = 0; i < elements.length; i++) { console.log(elements[i].name + " - " + elements[i].value) }
+          }
+
+      </script>-->
+  
+</body>
+
+</html>
